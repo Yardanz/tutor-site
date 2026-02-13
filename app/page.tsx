@@ -6,6 +6,9 @@ import { Button } from "@/components/ui/Button";
 import { prisma } from "@/lib/prisma";
 import { TELEGRAM_URL } from "@/lib/site-config";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 const helpItems = [
   "Подтянуть оценки и уверенность на уроках",
   "Закрыть пробелы в грамматике и лексике",

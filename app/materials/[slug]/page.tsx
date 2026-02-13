@@ -7,6 +7,9 @@ import { attachmentIcon, formatAttachmentSize, isImageAttachment } from "@/lib/a
 import { renderMarkdownToHtml } from "@/lib/markdown";
 import { prisma } from "@/lib/prisma";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 type Props = {
   params: Promise<{ slug: string }>;
 };

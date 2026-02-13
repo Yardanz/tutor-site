@@ -5,6 +5,9 @@ import { Button } from "@/components/ui/Button";
 import { attachmentIcon, formatAttachmentSize } from "@/lib/attachments";
 import { prisma } from "@/lib/prisma";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 const PAGE_SIZE = 10;
 
 type Props = {

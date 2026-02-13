@@ -2,6 +2,9 @@ import { notFound } from "next/navigation";
 import { PostEditorForm } from "@/components/admin/PostEditorForm";
 import { prisma } from "@/lib/prisma";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 type Props = {
   params: Promise<{ id: string }>;
 };
