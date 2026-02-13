@@ -1,5 +1,5 @@
 import { Children, cloneElement, isValidElement } from "react";
-import type { ButtonHTMLAttributes, ReactNode } from "react";
+import type { ButtonHTMLAttributes, ReactElement, ReactNode } from "react";
 
 type ButtonVariant = "primary" | "secondary" | "ghost" | "destructive";
 type ButtonSize = "sm" | "md";
@@ -46,10 +46,9 @@ export function Button({
   const classes = cn(baseClasses, variantClasses[variant], sizeClasses[size], className);
 
   if (asChild && isValidElement(children)) {
-    const child = Children.only(children);
+    const child = Children.only(children) as ReactElement<{ className?: string }>;
     return cloneElement(child, {
-      className: cn((child.props as { className?: string }).className, classes),
-      ...props,
+      className: cn(child.props.className, classes),
     });
   }
 

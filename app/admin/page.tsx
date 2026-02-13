@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Prisma } from "@prisma/client";
 import { DeletePostButton } from "@/components/admin/DeletePostButton";
 import { LogoutButton } from "@/components/admin/LogoutButton";
 import { Button } from "@/components/ui/Button";
@@ -7,6 +8,10 @@ import { prisma } from "@/lib/prisma";
 type Props = {
   searchParams: Promise<{ status?: string }>;
 };
+
+type AdminPostRow = Prisma.PostGetPayload<{
+  include: { _count: { select: { attachments: true } } };
+}>;
 
 function formatDate(value: Date | null) {
   if (!value) return null;
@@ -26,7 +31,7 @@ export default async function AdminPage({ searchParams }: Props) {
   const where =
     status === "published" ? { isPublished: true } : status === "draft" ? { isPublished: false } : {};
 
-  const posts = await prisma.post.findMany({
+  const posts: AdminPostRow[] = await prisma.post.findMany({
     where,
     include: { _count: { select: { attachments: true } } },
     orderBy: { updatedAt: "desc" },
@@ -60,7 +65,7 @@ export default async function AdminPage({ searchParams }: Props) {
       </div>
 
       <div className="space-y-3">
-        {posts.map((post) => (
+        {posts.map((post: AdminPostRow) => (
           <article key={post.id} className="card p-4">
             <div className="flex flex-wrap items-start justify-between gap-3">
               <div className="min-w-[240px]">
